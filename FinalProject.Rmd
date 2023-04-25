@@ -4,14 +4,16 @@ author: "Sally Mauldin"
 date: "2023-05-02"
 output: html_document
 ---
-	In the years leading up to and during the American Revolution, Charleston was the center of most administrative, judicial, and commercial activities in South Carolina. The state capital would eventually move to Columbia, but in the American Revolution-era, Charleston was the most important city in the state. Founded in 1670, it oversaw the creation of South Carolina as a state in 1775, and as one of the largest ports in the colonies, it was deemed vital enough to imperial success to be occupied by the British from 1780 until 1782. 
+
+In the years leading up to and during the American Revolution, Charleston was the center of most administrative, judicial, and commercial activities in South Carolina. The state capital would eventually move to Columbia, but in the American Revolution-era, Charleston was the most important city in the state. Founded in 1670, it oversaw the creation of South Carolina as a state in 1775, and as one of the largest ports in the colonies, it was deemed vital enough to imperial success to be occupied by the British from 1780 until 1782. 
 	
-	As the state’s center, Charleston’s records provide interesting insight into a variety of topics including the manumission of enslaved people. Inversely, the lack of proximity to Charleston means that “blacks who lived on removed Lowcountry or backcountry plantations usually remained untutored in the ways of the government” as “law for rural slaves was local and run by self-interested planters” where “slaves’ interests rarely were supported.”^[fn1] As such, data from Charleston is not a good indicator for extrapolating statewide trends, but it does provide valuable information about how enslaved people worked within the existing legal system as well as how their masters viewed their roles with respect to the ideals espoused by revolutionary doctrines of freedom and liberty.
+As the state’s center, Charleston’s records provide interesting insight into a variety of topics including the manumission of enslaved people. Inversely, the lack of proximity to Charleston means that “blacks who lived on removed Lowcountry or backcountry plantations usually remained untutored in the ways of the government” as “law for rural slaves was local and run by self-interested planters” where “slaves’ interests rarely were supported.”[^1] As such, data from Charleston is not a good indicator for extrapolating statewide trends, but it does provide valuable information about how enslaved people worked within the existing legal system as well as how their masters viewed their roles with respect to the ideals espoused by revolutionary doctrines of freedom and liberty.
 	
-	South Carolina “saw a dramatic increase in the number of emancipations during the American Revolution” with white South Carolinians emancipating their slaves “in unprecedented numbers.”^[fn2] While it may be easy enough to compare numbers for legal manumissions in South Carolina over different time periods, it is far more complicated trying to ascertain the rationale behind the actions. Some scholars claim that “no one attributed emancipation to humanitarian sentiment” with South Carolina masters giving “practical reasons to emancipate their slaves,” citing “the exceptional ‘Fidelity, Care, and good Service’ that their slaves gave them,” as “overt discussion of anti-slavery feelings was unwelcome in South Carolina.”^[fn3]  Other scholars argue that the increase in manumissions in South Carolina was due to masters being “stricken by the Revolution’s emphasis on the ideals of liberty and equality.”^[fn4]  Still other scholars focus on the ways in which “people of color paved their own paths to liberty by increasingly negotiating with their enslavers for self-purchase,” acknowledging the ways in which enslaved people were able to work within the system using their own agency.^[fn5] Regardless of the reasons why freedom was granted, scholars agree that Charleston is significant in manumissions studies as “nearly half” of South Carolina’s “free people of color lived in Charleston.”^[fn6]  
+South Carolina “saw a dramatic increase in the number of emancipations during the American Revolution” with white South Carolinians emancipating their slaves “in unprecedented numbers.”[^2] While it may be easy enough to compare numbers for legal manumissions in South Carolina over different time periods, it is far more complicated trying to ascertain the rationale behind the actions. Some scholars claim that “no one attributed emancipation to humanitarian sentiment” with South Carolina masters giving “practical reasons to emancipate their slaves,” citing “the exceptional ‘Fidelity, Care, and good Service’ that their slaves gave them,” as “overt discussion of anti-slavery feelings was unwelcome in South Carolina.”[^3]  Other scholars argue that the increase in manumissions in South Carolina was due to masters being “stricken by the Revolution’s emphasis on the ideals of liberty and equality.”[^4] Still other scholars focus on the ways in which “people of color paved their own paths to liberty by increasingly negotiating with their enslavers for self-purchase,” acknowledging the ways in which enslaved people were able to work within the system using their own agency.[^5] Regardless of the reasons why freedom was granted, scholars agree that Charleston is significant in manumissions studies as “nearly half” of South Carolina’s “free people of color lived in Charleston.”[^6]  
 	
-	An examination of a manumission dataset provides insight into what exactly was happening in Charleston as well as when and possible reasons why. The dataset encompasses manumissions filed in Charleston from 1768-1802 that were found in the Miscellaneous Records section of the South Carolina Department of Archives and History.^[fn7]  It is helpful to look at the dataset in two parts. The first examines the years during the American Revolution, 1765 until 1783. I have chosen to define Revolution years beginning with the Passage of the Stamp Act in 1765 and concluding that period with the signing of the Treaty of Paris in 1783. 
-```{r}
+An examination of a manumission dataset provides insight into what exactly was happening in Charleston as well as when and possible reasons why. The dataset encompasses manumissions filed in Charleston from 1768-1802 that were found in the Miscellaneous Records section of the South Carolina Department of Archives and History.[^7] It is helpful to look at the dataset in two parts. The first examines the years during the American Revolution, 1765 until 1783. I have chosen to define Revolution years beginning with the Passage of the Stamp Act in 1765 and concluding that period with the signing of the Treaty of Paris in 1783. 
+	
+```{r include=FALSE}
 library(DigitalMethodsData)
 data("charlestonManumissions")
 library(ggplot2)
@@ -20,7 +22,9 @@ library(tidytext)
 library(readtext)
 library(widyr)
 library(SnowballC)
+```
 
+```{r}
 charlestonManumissions.tidy <- charlestonManumissions %>%
   separate(Date, into = c("day", "month", "year"), sep = " ")
 
@@ -39,11 +43,13 @@ charlestonManumissions.tidy.after <- charlestonManumissions.tidy.names %>%
   filter(year >= "1784") %>%
   arrange(year)
 ```
-  The original dataset had 374 entries. After filtering to American Revolution years, there are 46 entries remaining. This means that 323 of the manumissions in the dataset did not occur during the war years as there are 5 entries without any years. Only 12.3% of manumissions in the dataset occurred during revolution years.
+
+The original dataset had 374 entries. After filtering to American Revolution years, there are 46 entries remaining. This means that 323 of the manumissions in the dataset did not occur during the war years as there are 5 entries without any years. Only 12.3% of manumissions in the dataset occurred during revolution years.
   
-  There were no manumissions in the dataset prior to the American Revolution. Four entries do not have years in the dataset.
+There were no manumissions in the dataset prior to the American Revolution. Four entries do not have years in the dataset.
   
-  There were 323 manumissions in the years following the war (1784-1802). About 86.4% of manumissions occurred after the American Revolution.
+There were 323 manumissions in the years following the war (1784-1802). About 86.4% of manumissions occurred after the American Revolution.
+
 ```{r}
 charlestonManumissions.AmRev.year <- charlestonManumissions.tidy.American.Revolution %>%
   select(year) %>%
@@ -55,9 +61,11 @@ ggplot(charlestonManumissions.AmRev.year, aes(x = year, y = count)) +
   ggtitle("Charleston Manumissions During the American Revolution") +
   labs(x="Year", y="Count")
 ```
-  During the Revolution period years, emancipations spiked in Charleston in 1777. This could possibly be due to the Battle of Sullivan's Island in June 1776. With such close proximity to Charleston, a major win against the British may have stoked some revolutionary ideals the following year. 
-  
-  It is clear, however, that during the peak moments of rhetoric of liberty and freedom, manumissions were not seen in high numbers at any point throughout the American Revolution. It would seem from the limited dataset being examined here, that notions of freedom did not correlate to massive numbers of manumissions.
+
+During the Revolution period years, emancipations spiked in Charleston in 1777. This could possibly be due to the Battle of Sullivan's Island in June 1776. With such close proximity to Charleston, a major win against the British may have stoked some revolutionary ideals the following year. 
+
+It is clear, however, that during the peak moments of rhetoric of liberty and freedom, manumissions were not seen in high numbers at any point throughout the American Revolution. It would seem from the limited dataset being examined here, that notions of freedom did not correlate to massive numbers of manumissions.
+
 ```{r}
 charlestonManumissions.afterAmRev.year <- charlestonManumissions.tidy.after %>%
   select(year) %>%
@@ -69,7 +77,9 @@ ggplot(charlestonManumissions.afterAmRev.year, aes(x = year, y = count)) +
   ggtitle("Charleston Manumissions After the American Revolution") +
   labs(x="Year", y="Count")
 ```
-	Interestingly, manumissions increased toward the end of the 18th century, reaching high points in 1796 and 1800. The question is why manumissions were granted at higher numbers during the final years of the century. The answer most likely lies in changes to South Carolina manumission laws that took effect around 1800 that “all but eliminated enslaved people’s possibilities of moving from enslavement to freedom.”^[fn8]  It is possible that some benevolent owners granted freedom before the law changed to make manumission more difficult. It is also possible that the enslaved negotiated even more fervently than before for their freedom, knowing that the window of possibility was about to close to them forever. Indeed, it is during this time period that South Carolina “slowly shifted from an environment in which manumission was tolerated under carefully controlled conditions” to “one in which manumission represented too great a threat to the institution of slavery to allow at all.”^[fn9]  The dataset represents a flash point in South Carolina history with respect to freed people and a turning point in ideology and economy that can be seen in the sharp drop in manumissions from 1800 to 1801.
+
+Interestingly, manumissions increased toward the end of the 18th century, reaching high points in 1796 and 1800. The question is why manumissions were granted at higher numbers during the final years of the century. The answer most likely lies in changes to South Carolina manumission laws that took effect around 1800 that “all but eliminated enslaved people’s possibilities of moving from enslavement to freedom.”[^8]  It is possible that some benevolent owners granted freedom before the law changed to make manumission more difficult. It is also possible that the enslaved negotiated even more fervently than before for their freedom, knowing that the window of possibility was about to close to them forever. Indeed, it is during this time period that South Carolina “slowly shifted from an environment in which manumission was tolerated under carefully controlled conditions” to “one in which manumission represented too great a threat to the institution of slavery to allow at all.”[^9] The dataset represents a flash point in South Carolina history with respect to freed people and a turning point in ideology and economy that can be seen in the sharp drop in manumissions from 1800 to 1801.
+
 ```{r}
 tidy_manumission <- charlestonManumissions %>%
   select(Notes...Quotes) %>%
@@ -80,7 +90,9 @@ tidy_manumission %>%
   count(word, sort = TRUE) %>%
   slice(1:20)
 ```
-	The dataset provides text from each of the manumission actions that provides information about why people were freed and the terms surrounding each situation. An examination of words used do not support the notion that American Revolution ideals were the culprit behind most manumissions. In fact, the word “free” appears 233 times in comparison to the words “consideration” (139 times), “paid” (115 times), and “sum” (104 times). The word “liberty” only appears eight times throughout the dataset. These words and their usage suggests that the enslaved purchased their freedom outright rather than relying on crises of conscience from their masters.
+
+The dataset provides text from each of the manumission actions that provides information about why people were freed and the terms surrounding each situation. An examination of words used do not support the notion that American Revolution ideals were the culprit behind most manumissions. In fact, the word “free” appears 233 times in comparison to the words “consideration” (139 times), “paid” (115 times), and “sum” (104 times). The word “liberty” only appears eight times throughout the dataset. These words and their usage suggests that the enslaved purchased their freedom outright rather than relying on crises of conscience from their masters.
+
 ```{r}
 manumission_bigrams <- tidy_manumission %>%
   unnest_tokens(bigram, word, token = "ngrams" , n = 2)
@@ -89,7 +101,9 @@ tidy_manumission %>%
   filter(word %in% c("fidelity" , "care" , "service" , "good", "child" , "affection" , "man" , "woman")) %>%
            count(word)
 ```
-	As to the supposition that masters were prone to manumit the enslaved for “Fidelity, Care, and good Service,” the data in Charleston does not support the theory.^[fn10] The word “fidelity” is only cited 11 times, the word “care” is only used four times, and the word “service” is used 10 times. The word “faithful” appears 27 times, which does suggest some value given to a certain level or time of service. Interestingly, “love” is used six times. The word “child” is mentioned four times. The word “affection” is cited nine times.
+
+As to the supposition that masters were prone to manumit the enslaved for “Fidelity, Care, and good Service,” the data in Charleston does not support the theory.[^10] The word “fidelity” is only cited 11 times, the word “care” is only used four times, and the word “service” is used 10 times. The word “faithful” appears 27 times, which does suggest some value given to a certain level or time of service. Interestingly, “love” is used six times. The word “child” is mentioned four times. The word “affection” is cited nine times.
+
 ```{r}
 tidy_manumission %>%
   count(word) %>%
@@ -97,7 +111,9 @@ tidy_manumission %>%
   arrange(desc(term_freq)) %>%
   slice(1:20)
 ```
-  Term frequency bears similar results to word counts. “Free” is a popular term, as well as “woman” which suggests that women were manumitted more frequently than men during this time period as the word “man” does not appear at all in the dataset. The words “paid” and “consideration” also appear frequently, which suggests payment rather than altruistic reasons for granting freedom.
+
+Term frequency bears similar results to word counts. “Free” is a popular term, as well as “woman” which suggests that women were manumitted more frequently than men during this time period as the word “man” does not appear at all in the dataset. The words “paid” and “consideration” also appear frequently, which suggests payment rather than altruistic reasons for granting freedom.
+
 ```{r}
 charlestonManumissions.tidy.American.Revolution.race <- charlestonManumissions.tidy.American.Revolution %>%
   select(Race, year) %>%
@@ -109,7 +125,9 @@ ggplot(charlestonManumissions.tidy.American.Revolution.race, aes(fill=Race, y=nn
     geom_bar(position="stack", stat="identity") +
   ggtitle("Charleston Manumissions During the American Revolution by Race") + labs(x="Year", y="Count")
 ```
-  An examination of race during the American Revolution reveals that most individuals who negotiated for their freedom were labeled as either “black” or “mulatto.” There were only three categories of race during the revolutionary period – “black,” “mulatto,” and “mestizo.” After the revolutionary period, the categories of race expanded to also include “black, mulatto, mulatto,” “black; mulatto,” “black/mestizo,” “moor,” “mulatto or mustee,” “mustee,” and “mustizoe.” The majority of manumissions during this period were described as “mulatto.” 
+
+An examination of race during the American Revolution reveals that most individuals who negotiated for their freedom were labeled as either “black” or “mulatto.” There were only three categories of race during the revolutionary period – “black,” “mulatto,” and “mestizo.” After the revolutionary period, the categories of race expanded to also include “black, mulatto, mulatto,” “black; mulatto,” “black/mestizo,” “moor,” “mulatto or mustee,” “mustee,” and “mustizoe.” The majority of manumissions during this period were described as “mulatto.” 
+
 ```{r}
 charlestonManumissions.tidy.afterAR.race <- charlestonManumissions.tidy.after %>%
   select(Race, year) %>%
@@ -122,7 +140,9 @@ ggplot(charlestonManumissions.tidy.afterAR.race, aes(fill=Race, y=nn, x=year)) +
   ggtitle("Charleston Manumissions After the American Revolution by Race") +
   labs(x="Year", y="Count")
 ```
-  The explanation for the rise in “mulatto” individuals being freed in higher numbers after the war may have something to do with the person’s origins. During the revolutionary period, the motive given for the manumission was cited as “Moral; Sexual," "Moral; Foreign; Sexual," "Moral; Sexual; Foreign," or "Self-Purchase; Sexual" a total of three times. 
+
+The explanation for the rise in “mulatto” individuals being freed in higher numbers after the war may have something to do with the person’s origins. During the revolutionary period, the motive given for the manumission was cited as “Moral; Sexual," "Moral; Foreign; Sexual," "Moral; Sexual; Foreign," or "Self-Purchase; Sexual" a total of three times. 
+
 ```{r}
 charlestonManumissions.tidy.American.Revolution %>%
   filter(Motive == "Moral; Sexual" | Motive == "Moral; Foreign; Sexual" | Motive == "Moral; Sexual; Foreign" | Motive == "Self-Purchase; Sexual")
@@ -132,31 +152,51 @@ charlestonManumissions.tidy.American.Revolution %>%
 charlestonManumissions.tidy.after %>%
   filter(Motive == "Moral; Sexual" | Motive == "Moral; Foreign; Sexual" | Motive == "Moral; Sexual; Foreign" | Motive == "Self-Purchase; Sexual")
 ```
-  After the war, the "sexual" motives rose to 30 cases. Most of those individuals were categorized as "mulatto," so this suggests that there may have been sexual relationships that created mixed race progeny in need of freedom prior to changes in South Carolina law around 1800 that made it much more difficult to grant freedom.
+
+After the war, the "sexual" motives rose to 30 cases. Most of those individuals were categorized as "mulatto," so this suggests that there may have been sexual relationships that created mixed race progeny in need of freedom prior to changes in South Carolina law around 1800 that made it much more difficult to grant freedom.
   
-  In short, this small dataset does not point to any clear evidence that notions of freedom brought on by revolutionary sentiment resulted in an increase in manumissions. Rather, it appears as though the enslaved found ways to buy their own freedom by recognizing that South Carolina law was about to change to make manumission nearly impossible. This dataset does appear to be in keeping with the theory that “far more people professed antislavery sentiment than acted on that sentiment,” and draws a “distinction between belief and action – between individuals passively lamenting slavery and group initiatives against slavery.”^[fn11] While the historiography has traditionally been about “stark choices” between the sentimental and the practical, there are “more nuanced” ways to view manumission during the American Revolution, and datasets like this one assist in seeking the truth behind manumission motives.^[fn12] In Charleston, there was no significant link found between revolutionary ideals and numbers of manumissions. Increased manumissions appeared to be more closely linked to changes in South Carolina law instead.
+In short, this small dataset does not point to any clear evidence that notions of freedom brought on by revolutionary sentiment resulted in an increase in manumissions. Rather, it appears as though the enslaved found ways to buy their own freedom by recognizing that South Carolina law was about to change to make manumission nearly impossible. This dataset does appear to be in keeping with the theory that “far more people professed antislavery sentiment than acted on that sentiment,” and draws a “distinction between belief and action – between individuals passively lamenting slavery and group initiatives against slavery.”[^11] While the historiography has traditionally been about “stark choices” between the sentimental and the practical, there are “more nuanced” ways to view manumission during the American Revolution, and datasets like this one assist in seeking the truth behind manumission motives.[^12] In Charleston, there was no significant link found between revolutionary ideals and numbers of manumissions. Increased manumissions appeared to be more closely linked to changes in South Carolina law instead.
+ 
+---
+
+Bibliography
+
+Blanck, Emily. “The Legal Emancipations of Leander and Caesar: Manumission and the Law in Revolutionary South Carolina and Massachusetts.” Slavery & Abolition 28, no. 2 (2007): 235–54. 238. https://doi.org/10.1080/01440390701428030.
+
+Hammond, John Craig, and Matthew. Mason. Contesting Slavery the Politics of Bondage and Freedom in the New American Nation. Charlottesville: University of Virginia Press, 2011. 
+
+Marks, John, "Manumissions Database, Charleston District, South Carolina (1776-1800)," 12/31/13 - 12/31/13. 34. Philadelphia, PA: McNeil Center for Early American Studies [distributor], 2018. https://repository.upenn.edu.
+
+Marks, John Garrison. “Race and Freedom in the African Americas: Free People of Color and Social Mobility in Cartagena and Charleston.” ProQuest Dissertations Publishing, 2016. 
+
+Milteer, Warren Eugene. Beyond Slavery’s Shadow: Free People of Color in the South. Chapel Hill: University of North Carolina Press, 2021.
+
+Myers, Amrita Chakrabarti. 2011. Forging Freedom: Black Women and the Pursuit of Liberty in Antebellum Charleston. Chapel Hill: University of North Carolina Press. Accessed April 15, 2023. ProQuest Ebook Central. 
   
+---
 
-[^fn1]: Blanck, Emily. “The Legal Emancipations of Leander and Caesar: Manumission and the Law in Revolutionary South Carolina and Massachusetts.” Slavery & Abolition 28, no. 2 (2007): 235–54. 238. https://doi.org/10.1080/01440390701428030.
+Notes
 
-[^fn2]: Ibid, 240.
+[^1]: Blanck, Emily. “The Legal Emancipations of Leander and Caesar: Manumission and the Law in Revolutionary South Carolina and Massachusetts.” Slavery & Abolition 28, no. 2 (2007): 235–54. 238. https://doi.org/10.1080/01440390701428030.
 
-[^fn3]: Ibid, 244.
+[^2]: Ibid, 240.
 
-[^fn4]: Myers, Amrita Chakrabarti. 2011. Forging Freedom: Black Women and the Pursuit of Liberty in Antebellum Charleston. Chapel Hill: University of North Carolina Press. Accessed April 15, 2023. ProQuest Ebook Central. 41.
+[^3]: Ibid, 244.
 
-[^fn5]: Milteer, Warren Eugene. Beyond Slavery’s Shadow: Free People of Color in the South. Chapel Hill: University of North Carolina Press, 2021. 38.
+[^4]: Myers, Amrita Chakrabarti. 2011. Forging Freedom: Black Women and the Pursuit of Liberty in Antebellum Charleston. Chapel Hill: University of North Carolina Press. Accessed April 15, 2023. ProQuest Ebook Central. 41.
 
-[^fn6]: Ibid, 55.
+[^5]: Milteer, Warren Eugene. Beyond Slavery’s Shadow: Free People of Color in the South. Chapel Hill: University of North Carolina Press, 2021. 38.
 
-[^fn7]: Marks, John, "Manumissions Database, Charleston District, South Carolina (1776-1800)," 12/31/13 - 12/31/13. 34. Philadelphia, PA: McNeil Center for Early American Studies [distributor], 2018. https://repository.upenn.edu. Note that the actual years contained in the dataset differ from the information given by the creator in the dataset’s description as well as the preferred citation.
+[^6]: Ibid, 55.
 
-[^fn8]: Marks, John Garrison. “Race and Freedom in the African Americas: Free People of Color and Social Mobility in Cartagena and Charleston.” ProQuest Dissertations Publishing, 2016. 20.
+[^7]: Marks, John, "Manumissions Database, Charleston District, South Carolina (1776-1800)," 12/31/13 - 12/31/13. 34. Philadelphia, PA: McNeil Center for Early American Studies, 2018. https://repository.upenn.edu. Note that the actual years contained in the dataset differ from the information given by the creator in the dataset’s description as well as the preferred citation.
 
-[^fn9]: Ibid, 21-22.
+[^8]: Marks, John Garrison. “Race and Freedom in the African Americas: Free People of Color and Social Mobility in Cartagena and Charleston.” ProQuest Dissertations Publishing, 2016. 20.
 
-[^fn10]: Blanck, 244.
+[^9]: Ibid, 21-22.
 
-[^fn11]: Hammond, John Craig, and Matthew. Mason. Contesting Slavery the Politics of Bondage and Freedom in the New American Nation. Charlottesville: University of Virginia Press, 2011. 12.
+[^10]: Blanck, 244.
 
-[^fn12]: Ibid, 12.
+[^11]: Hammond, John Craig, and Matthew. Mason. Contesting Slavery the Politics of Bondage and Freedom in the New American Nation. Charlottesville: University of Virginia Press, 2011. 12.
+
+[^12]: Ibid, 12.
