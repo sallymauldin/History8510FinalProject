@@ -44,7 +44,7 @@ charlestonManumissions.tidy.after <- charlestonManumissions.tidy.names %>%
   arrange(year)
 ```
 
-The original dataset had 374 entries. After filtering to American Revolution years, there are 46 entries remaining. This means that 323 of the manumissions in the dataset did not occur during the war years as there are 5 entries without any years. Only 12.3% of manumissions in the dataset occurred during revolution years.
+The original dataset had 374 entries. After filtering to American Revolution years, there are 47 entries remaining. Only about 12.5% of manumissions in the dataset occurred during revolution years.
   
 There were no manumissions in the dataset prior to the American Revolution. Four entries do not have years in the dataset.
   
