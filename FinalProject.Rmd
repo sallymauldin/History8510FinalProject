@@ -1,5 +1,5 @@
 ---
-title: "Final Project - Charleston Manumissions and Revolutionary Sentiment"
+title: "Charleston Manumissions and Revolutionary Sentiment"
 author: "Sally Mauldin"
 date: "2023-05-02"
 output: html_document
