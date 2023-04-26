@@ -147,7 +147,7 @@ charlestonManumissions.tidy.American.Revolution %>%
   filter(Motive == "Moral; Sexual" | Motive == "Moral; Foreign; Sexual" | Motive == "Moral; Sexual; Foreign" | Motive == "Self-Purchase; Sexual")
 ```
 
-The explanation for the rise in “mulatto” individuals being freed in higher numbers after the war may have something to do with the person’s parentage. During the revolutionary period, the motive given for the manumission was cited as “Moral; Sexual," "Moral; Foreign; Sexual," "Moral; Sexual; Foreign," or "Self-Purchase; Sexual" a total of three times. "Sexual" as a motive requires further examination.
+The explanation for the rise in “mulatto” individuals being freed in higher numbers after the war may have something to do with the person’s parentage. During the revolutionary period, the motive given for the manumission was cited as “Moral; Sexual," "Moral; Foreign; Sexual," "Moral; Sexual; Foreign," or "Self-Purchase; Sexual" a total of three times. "Sexual" as a motive requires further examination as it is an interesting and perhaps unexpected motive.
 
 ```{r}
 charlestonManumissions.tidy.after %>%
